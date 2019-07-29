@@ -193,7 +193,7 @@ class SynthesisOutput:
 
     def print_table(self, table_style=TableStyle.UNICODE, local_src=LocalFlag.BOTH,
                     local_dst=LocalFlag.BOTH, nat=NatFlag.ALL,
-                     projection=[]):
+                     projection=[], aliases={}):
         """
         Print the table showing the synthesis
 
@@ -211,7 +211,7 @@ class SynthesisOutput:
         table_printer.print_table(
             rules, table_style, [ipaddr.IPv4Address(a) for a in self.firewall.locals],
             hide_src, hide_dst, hide_nats, hide_filters,
-            projection)
+            projection, aliases=aliases)
 
     def get_rules_no_duplicates(self):
         rules = [Synthesis.mrule_list(r) for r in self.__rules]

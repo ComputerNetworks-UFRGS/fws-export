@@ -170,9 +170,9 @@ class Nondeterminism(FWSCmd, namedtuple('Nondeterminism', ['p', 'projection', 't
 class Synthesis(FWSCmd, namedtuple('Synthesis', ['p', 'projection', 'table', 'query', 'option'])):
     def eval(self, fws):
         policy = fws.get_variable(self.p)
-        # aliases = policy.config['aliases']
+        aliases = policy.config['aliases']
         interfaces = policy.config['interfaces']
-        query = self.query.render()
+        query = replace_aliases(self.query, aliases).render()
         firewall, frontend = policy.firewall, policy.frontend
         (localSrc, localDst), nat = table_to_flags(self.table)
         table_style = fws.table_style
@@ -195,17 +195,14 @@ class Synthesis(FWSCmd, namedtuple('Synthesis', ['p', 'projection', 'table', 'qu
 
                     print "\n"+name
                     rules = firewall.synthesize(localsrc, localdst, query)
-                    # print("----")
-                    # print(rules.get_rules())
-                    # print("----")
                     print
                     rules.print_table(table_style, localsrc, localdst, nat,
-                                    projection=self.projection)
+                                      aliases=aliases, projection=self.projection)
             else:
                 rules = firewall.synthesize(localSrc, localDst, query)
                 print
                 rules.print_table(table_style, localSrc, localDst, nat,
-                                  projection=self.projection)
+                                  aliases=aliases, projection=self.projection)
 
             if fws.show_time:
                 print "\nSynthesis Time: {}".format(timedelta(seconds = time.time() - start_t))

@@ -7,10 +7,6 @@ import fwsynthesizer.utils as utils
 import fwsynthesizer.utils.table as table
 import fwsynthesizer.utils.macaddr as macaddr
 import fwsynthesizer.utils.ipaddr_ext as ipaddr_ext
-import csv
-import os
-
-CSV_OUTPUT='output/{}.csv'
 
 header = [ ("srcIp", "Source IP"), ("srcPort", "Source Port"),
            ("srcIp'", "SNAT IP"), ("srcPort'", "SNAT Port"),
@@ -264,7 +260,7 @@ def rule_to_rowg(rule, hide=[], hide_src=False, hide_dst=False, prefix=[], alias
 # TODO: check projection (nat field on filter table)
 def print_table(rules, table_style='unicode',
                 local_address=[], hide_src=False, hide_dst=False,
-                hide_nats=False, hide_filters=False, projection=[]):
+                hide_nats=False, hide_filters=False, projection=[], aliases={}):
 
     """Print a list of rules into a table, dividing filters and nats
        and optionally hiding local addresses"""
@@ -273,19 +269,7 @@ def print_table(rules, table_style='unicode',
         t = table.Table(header, style=table_style)
         t.project(projection)
         for rule in rules:
-            ruleset = rule_to_rowg(rule, local_address, hide_src, hide_dst)
-            t.append_row_group(ruleset)
-            columns = [name for name,alias in header]
-            
-            csv_exists = os.path.isfile(CSV_OUTPUT.format(rule.type))
-
-            with open(CSV_OUTPUT.format(rule.type), 'a') as csvfile:
-                rulewriter = csv.writer(csvfile, delimiter=",", quotechar='"', quoting=csv.QUOTE_ALL)
-                if not csv_exists:
-                    rulewriter.writerow(columns)
-
-                for r in ruleset:              
-                        rulewriter.writerow(list(r))
+            t.append_row_group(rule_to_rowg(rule, local_address, hide_src, hide_dst, aliases=aliases))
         print t.render()
 
     filters = [rule for rule in rules if rule.type == 'FILTER']
