@@ -285,7 +285,7 @@ def print_table(rules, table_style='unicode',
                     rulewriter.writerow(columns)
 
                 for r in ruleset:              
-                        rulewriter.writerow(list(r))
+                    rulewriter.writerow(list(r))
         print t.render()
 
     filters = [rule for rule in rules if rule.type == 'FILTER']
