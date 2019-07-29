@@ -10,6 +10,8 @@ import fwsynthesizer.utils.ipaddr_ext as ipaddr_ext
 import csv
 import os
 
+CSV_OUTPUT='output/{}.csv'
+
 header = [ ("srcIp", "Source IP"), ("srcPort", "Source Port"),
            ("srcIp'", "SNAT IP"), ("srcPort'", "SNAT Port"),
            ("dstIp'", "DNAT IP"),("dstPort'", "DNAT Port"),
