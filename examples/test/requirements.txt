@@ -1,5 +1,0 @@
-Requirements:
-
-1) Internal network can freely communicate 
-2) Allow SSH/HTTPS incoming traffic to the corresponding hosts (SSH Server and HTTPS Web server)
-3) Allow HTTP/HTTPS outgoing traffic
