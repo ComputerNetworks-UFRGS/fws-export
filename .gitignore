@@ -13,3 +13,5 @@ lib/HaPy-python/build/*
 *.pyc
 .directory
 venv
+.vscode/
+fwsproject.code-workspace
