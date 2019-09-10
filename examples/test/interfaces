@@ -1,4 +1,12 @@
 # if    network           local address
+[INTERFACES]
+eth0    172.16.1.0/24     172.16.1.5
+eth1    10.0.0.0/8        10.0.0.5
 
-eth0    172.16.1.0/24     172.16.1.1
-eth1    172.16.2.0/24     172.16.2.1
+[ALIASES]
+# networks
+my_network   10.0.0.0/8
+
+# ips
+ssh_server  10.0.1.15
+web_server  10.0.1.16
