@@ -27,10 +27,9 @@ class HaskellModule:
     self.__str__ = module_name
     self.__path__ = []
 
-    directories = ["./", "dist/*/build/", "dist/build/", "~/.cabal/lib/*/",
-                   ".cabal-sandbox/lib/*/", ".cabal-sandbox/lib/*/*/",
+    directories = ["./", "dist/*/build/", ".cabal-sandbox/lib/*/", ".cabal-sandbox/lib/*/*/",
                    sys.prefix+"/lib/", sys.prefix+"/lib/*/", sys.prefix+"/lib/*/*/",
-                   "/usr/local/lib/*/", "/usr/lib/", "/lib/"]
+                   "/usr/lib/", "/lib/"]
     prefixes = ["libHS", ""]
     extensions = [".so", ".dylib"]
 

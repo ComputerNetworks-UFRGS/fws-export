@@ -7,7 +7,7 @@ all: fws
 venv:
 	virtualenv --python=python2 venv/; \
 	. venv/bin/activate; \
-	pip install ipaddr parsec textx==1.8.0
+	pip install ipaddr parsec textx
 	. venv/bin/activate; cd lib/HaPy-python; python setup.py install
 	. venv/bin/activate; python setup.py install
 
